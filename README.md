@@ -55,7 +55,7 @@ O projeto possui dois objetivos centrais:
 
 ![Gráficos](docs/cap_prod.png)
 
-![fator de custo](fator/main.png)
+![fator de custo](docs/fator.png)
 
 
 ---
