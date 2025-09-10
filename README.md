@@ -1,149 +1,107 @@
-#  Sistema de Monitoramento de Enfesto em Indústrias Têxteis
+# Sistema Inteligente de Monitoramento e Otimização de Produção Têxtil
 
-##  Grupo: 44
+## Grupo: 39
 
 ### 👨‍💻 Integrantes:
-
 * Thiago Scutari - RM562831 | [thiago.scutari@outlook.com](mailto:thiago.scutari@outlook.com)
 * Henrique Ribeiro Siqueira - RM565044 | [henrique.ribeiro1201@gmail.com](mailto:henrique.ribeiro1201@gmail.com)
 * Mariana Cavalante Oliveira - RM561678 | [mari.kvalcant@gmail.com](mailto:mari.kvalcant@gmail.com)
 
 ### 👩‍🏫 Professores:
-
 * Leonardo Ruiz Orabona
 * Andre Godoi Chiovato
 
 ---
 
-# 📦 Sistema de Monitoramento de Enfestos com ESP32 + Python + SQLite
+## 🎥 Demonstração em Vídeo
 
-Projeto completo de simulação e análise de um sistema de monitoramento de **folhas de tecido (enfesto)**, utilizando sensores simulados com ESP32, banco de dados local em SQLite, análise em Python, gráficos interativos com Plotly e exportação de relatórios.
+Assista a uma demonstração completa do projeto, desde a captura de dados do sensor até a utilização do dashboard de otimização de produção.
 
----
-
-## Objetivo
-
-Simular um processo industrial de **movimentação de tecido**, em que um sensor ultrassônico mede a distância em tempo real e, com isso, identificamos **quantas folhas foram passadas** (ida e volta da máquina).
+**[Clique aqui para ver o vídeo no YouTube](https://youtu.be/Im8_M_dCf0Q)**
 
 ---
 
-## Componentes do Projeto
+## 📖 Visão Geral do Projeto
 
-- **ESP32 (simulado via Wokwi)** com sensor ultrassônico
-- **Leitura contínua dos dados via porta serial (RFC2217)**
-- **Registro das leituras em SQLite (enfesto.db)**
-- **Detecção de folhas (ida e volta) com base nos limites de distância**
-- **Armazenamento de data/hora, máquina e ordem de produção**
-- **Análises com Pandas + gráficos com Plotly**
-- **Exportação para CSV e JSON**
-- **Interface CLI interativa com `main.py`**
+Projeto completo que integra um sistema de monitoramento de **folhas de tecido (enfesto)** via IoT e uma ferramenta de **otimização de produção (PPCP)** com Inteligência Artificial.
 
 ---
 
-## 📂 Estrutura do Projeto
+## 🎯 Objetivo
 
-```
-SPRINT_2/
-├── docs/
-├── ESP32_Firmware/
-├── python/
-│   ├── assets/
-│   ├── database/
-│   │   └── enfesto.db
-│   ├── src/
-│   │   ├── analise_dados.py
-│   │   ├── db_manager.py
-│   │   ├── main.py
-│   │   └── monitorar_sensor.py
-│   └── output/
-│       └── (CSV e JSON gerados)
-├── requirements.txt
-└── README.md
-```
+O projeto possui dois objetivos centrais:
+1.  **Monitorar:** Simular um processo industrial de enfesto, onde um sensor ultrassônico captura dados em tempo real para monitoramento da produção, armazenando-os em um banco de dados relacional.
+2.  **Otimizar:** Resolver um problema complexo de planejamento de produção utilizando Programação Linear para encontrar o plano de menor custo operacional, apresentando a solução em um dashboard web interativo.
 
 ---
 
-## Requisitos
+## 🛠️ Componentes do Projeto
 
-- Python 3.10+
-- pip
-- Ambiente virtual recomendado (`venv`)
+- **Hardware Simulado (Wokwi):**
+  - ESP32 com Sensor Ultrassônico (HC-SR04).
+- **Linguagem e Bibliotecas Principais (Python):**
+  - `pyserial`: para comunicação com o sensor.
+  - `sqlite3`: para gerenciamento do banco de dados.
+  - `pandas`: para análise e manipulação dos dados.
+  - `pulp`: para o modelo de otimização (Programação Linear).
+  - `dash` e `plotly`: para a criação do dashboard web interativo.
+- **Banco de Dados:**
+  - SQLite com um esquema relacional normalizado.
+- **Interfaces:**
+  - **Dashboard Web:** Interface principal para a otimização de PPCP.
+  - **CLI (Command Line Interface):** Interface secundária para análise de dados do sensor.
 
 ---
 
-## Instalação
+## 🔩 Modelagem do Banco de Dados
+
+Para esta entrega, o banco de dados foi reestruturado para um modelo relacional, garantindo a integridade e eliminando redundâncias.
+
+![Diagrama Entidade-Relacionamento](docs/der.png)
+
+
+---
+
+## 🚀 Instalação e Execução
+
+### Instalação
 
 ```bash
-# Clone o projeto
-git clone <repositorio>
+# Clone o repositório
+git clone [https://github.com/ThiagoScutari/sprint_2.git](https://github.com/ThiagoScutari/sprint_3.git)
+cd sprint_2/python
 
-# Acesse a pasta Python
-cd python
-
-# Crie ambiente virtual
+# Crie e ative um ambiente virtual
+# Windows
 python -m venv venv
-venv\Scripts\activate  # Windows
+.\\venv\\Scripts\\activate
+
+# macOS / Linux
+# python3 -m venv venv
+# source venv/bin/activate
 
 # Instale as dependências
 pip install -r requirements.txt
 ```
 
----
+### Execução
 
-## Execução
+O projeto possui dois componentes executáveis principais.
 
-### 1. Inicie a simulação no Wokwi (sensor conectado à porta RFC2217)
+#### 1. Dashboard de Otimização de Produção (Entrega Principal)
 
-### 2. Rode o script de monitoramento:
+Para iniciar o servidor web e acessar o dashboard, execute:
+```bash
+python src/ml_model.py
+```
+Abra seu navegador no endereço fornecido (geralmente `http://127.0.0.1:8050/`).
 
+#### 2. Monitoramento de Sensor (Coleta de Dados)
+
+**Passo 1:** Inicie a simulação do ESP32 no Wokwi.
+
+**Passo 2:** Para capturar os dados do sensor e salvá-los no banco, execute:
 ```bash
 python src/monitorar_sensor.py
 ```
-
-O sensor começará a registrar distância + hora + OP + máquina e armazenar no banco.
-
-### 3. Rode a análise e relatórios:
-
-```bash
-python src/main.py
-```
-
-Você poderá:
-- Visualizar folhas por ordem
-- Ver produtividade por máquina
-- Exportar CSV/JSON
-- Abrir gráficos interativos (Plotly)
-
----
-
-## Funcionalidades disponíveis via `main.py`
-
-| Opção | Ação |
-|-------|------|
-| 1 | Análise: folhas por ordem de produção |
-| 2 | Análise: produtividade por máquina |
-| 3 | Análise: folhas por dia |
-| 4 | Exportar dados para CSV e JSON |
-| 5 | Gráfico: folhas por OP (Plotly) |
-| 6 | Gráfico: produtividade por máquina (Plotly) |
-| 7 | Gráfico: folhas por dia (Plotly) |
-| 0 | Sair |
-
----
-
-## Exemplo de Registro
-
-```
-[2025-06-13 21:52:45]  399.9 cm | OP=OP00123 | folhas=4
-Nova folha registrada! Total: 5
-```
-
----
-
-## 📚 Bibliotecas Utilizadas
-
-- `sqlite3` – Banco de dados local
-- `pandas` – Manipulação de dados
-- `plotly` – Visualizações interativas
-- `serial` – Comunicação com sensor simulado
-- `logging` – Log de eventos e rastreamento
+Pressione `Ctrl+C` para parar a coleta.
