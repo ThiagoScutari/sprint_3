@@ -51,6 +51,13 @@ O projeto possui dois objetivos centrais:
   - **Dashboard Web:** Interface principal para a otimização de PPCP.
   - **CLI (Command Line Interface):** Interface secundária para análise de dados do sensor.
 
+![Confiurações](docs/main.png)
+
+![Gráficos](docs/cap_prod.png)
+
+![fator de custo](fator/main.png)
+
+
 ---
 
 ## 🔩 Modelagem do Banco de Dados
@@ -58,7 +65,6 @@ O projeto possui dois objetivos centrais:
 Para esta entrega, o banco de dados foi reestruturado para um modelo relacional, garantindo a integridade e eliminando redundâncias.
 
 ![Diagrama Entidade-Relacionamento](docs/der.png)
-
 
 ---
 
